@@ -1,15 +1,25 @@
+"""
+MongoDB Setup Module
+"""
 from pymongo import MongoClient
+import config
 
-def setup_mongodb():
-    client = MongoClient('mongodb://localhost:27017/')
-    db = client['marketplace']
+def create_collections():
+    """Create required collections if they don't exist."""
+    client = MongoClient(host=config.MONGO_HOST, port=config.MONGO_PORT)
+    db = client[config.MONGO_DB]
 
-    # Check if the collection exists and create if not
     if 'deliveries' not in db.list_collection_names():
         db.create_collection('deliveries')
-        print("Collection 'deliveries' created successfully")
+        print(f"Collection 'deliveries' created in '{config.MONGO_DB}'")
     else:
         print("Collection 'deliveries' already exists")
 
+    client.close()
+
+def setup():
+    """Run full MongoDB setup."""
+    create_collections()
+
 if __name__ == "__main__":
-    setup_mongodb()
+    setup()

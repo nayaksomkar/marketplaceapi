@@ -1,46 +1,99 @@
-# Instructions for Marketplace Setup and Display
+# Marketplace API
 
-## 1. Database and Table Creation
-**File Name: `sqldbcreate.py` and `mongodbcreate.py`**
+A RESTful API for marketplace data management with MySQL and MongoDB.
 
-- **Purpose:** Create the MySQL database and tables.
-- **Steps:**
-  - Connect to MySQL server.
-  - Create the `marketplace` database if it doesn’t exist.
-  - Create `customers`, `sellers`, and `items` tables if they don’t exist.
+## Quick Start
 
-## 2. Data Population
-**File Name: `datawrite.py`**
+### Docker
+```bash
+docker-compose up -d
+```
 
-- **Purpose:** Insert data into MySQL and MongoDB if not already present.
-- **Steps:**
-  - Connect to MySQL and MongoDB.
-  - Check for existing data and insert if missing.
-  - Populate `customers`, `sellers`, `items`, and `deliveries` collections.
+### Local Development
+```bash
+# Setup virtual environment
+python -m venv venv
+source venv/bin/activate      # Linux/macOS
+venv\Scripts\activate         # Windows
 
-## 3. API Backend
-**File Name: `mainapi.py`**
+# Install dependencies
+pip install -r requirements.txt
 
-- **Purpose:** Provide APIs to fetch data from MySQL and MongoDB.
-- **Steps:**
-  - Connect to MySQL and MongoDB.
-  - Define API endpoints to return data from `customers`, `sellers`, `items`, and `deliveries`.
-  - Enable CORS to allow requests from all origins.
+# Setup databases
+python sqldbcreate.py
+python mongodbcreate.py
+python datawrite.py
 
-## 4. Frontend Display
-**File Name: `main.html`**
+# Run API
+python mainapi.py
+```
 
-- **Purpose:** Display data from the API in a web interface.
-- **Steps:**
-  - Fetch data from API endpoints for `customers`, `sellers`, `items`, and `deliveries`.
-  - Populate HTML tables with the fetched data.
-  - Handle errors and display them in the tables.
+## Configuration
 
-## Execution Sequence
+Edit `config.py` to change database settings:
 
-1. **Run `sqldbcreate.py` and `mongodbcreate.py`** to create the database and tables.
-2. **Run `datawrite.py`** to insert initial data into MySQL and MongoDB.
-3. **Run `mainapi.py`** to start the Flask server and make API endpoints available.
-4. **Open `main.html`** in a web browser to view the data fetched from the API.
+```python
+DB_HOST = 'localhost'
+DB_PORT = 3306
+DB_USER = 'root'
+DB_PASSWORD = '0000'
+DB_NAME = 'marketplace'
 
-This sequence ensures that the database and data are prepared before the server and frontend are used.
+MONGO_HOST = 'localhost'
+MONGO_PORT = 27017
+MONGO_DB = 'marketplace'
+```
+
+Or use environment variables:
+```bash
+export DB_HOST=localhost
+export DB_PASSWORD=your_password
+```
+
+## Files
+
+| File | Purpose |
+|------|---------|
+| `mainapi.py` | Flask API server |
+| `config.py` | Configuration settings |
+| `sqldbcreate.py` | Creates MySQL tables |
+| `mongodbcreate.py` | Creates MongoDB collections |
+| `datawrite.py` | Seeds sample data |
+
+## API Endpoints
+
+| Endpoint | Description |
+|----------|-------------|
+| GET `/` | API info |
+| GET `/health` | Health check |
+| GET `/api/customers` | List customers |
+| GET `/api/customers/<id>` | Get customer |
+| GET `/api/sellers` | List sellers |
+| GET `/api/sellers/<id>` | Get seller |
+| GET `/api/items` | List items |
+| GET `/api/items/<id>` | Get item |
+| GET `/api/deliveries` | List deliveries |
+| GET `/api/deliveries/<id>` | Get delivery |
+
+## Docker Services
+
+| Service | Port |
+|---------|------|
+| api | 5000 |
+| mysql | 3306 |
+| mongodb | 27017 |
+
+## Project Structure
+
+```
+marketplaceapi/
+├── mainapi.py
+├── config.py
+├── sqldbcreate.py
+├── mongodbcreate.py
+├── datawrite.py
+├── main.html
+├── requirements.txt
+├── Dockerfile
+└── docker-compose.yml
+```
