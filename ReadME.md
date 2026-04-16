@@ -26,6 +26,8 @@ python datawrite.py
 
 # Run API
 python mainapi.py
+
+# Open index.html in browser
 ```
 
 ## Configuration
@@ -41,16 +43,9 @@ DB_NAME = 'marketplace'
 
 MONGO_HOST = 'localhost'
 MONGO_PORT = 27017
-MONGO_DB = 'marketplace'
 ```
 
-Or use environment variables:
-```bash
-export DB_HOST=localhost
-export DB_PASSWORD=your_password
-```
-
-## Files
+## Project Files
 
 | File | Purpose |
 |------|---------|
@@ -59,6 +54,9 @@ export DB_PASSWORD=your_password
 | `sqldbcreate.py` | Creates MySQL tables |
 | `mongodbcreate.py` | Creates MongoDB collections |
 | `datawrite.py` | Seeds sample data |
+| `index.html` | Dashboard UI |
+| `styles.css` | Dashboard styles |
+| `app.js` | Dashboard logic |
 
 ## API Endpoints
 
@@ -92,7 +90,9 @@ marketplaceapi/
 ├── sqldbcreate.py
 ├── mongodbcreate.py
 ├── datawrite.py
-├── main.html
+├── index.html
+├── styles.css
+├── app.js
 ├── requirements.txt
 ├── Dockerfile
 └── docker-compose.yml
