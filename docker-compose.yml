@@ -1,6 +1,10 @@
+# Marketplace API Docker Compose
+# Orchestrates: MySQL, MongoDB, and Flask API
+
 version: '3.8'
 
 services:
+  # MySQL Database Service
   mysql:
     image: mysql:8.0
     environment:
@@ -9,20 +13,25 @@ services:
     ports:
       - "3306:3306"
     volumes:
+      # Persist database data between restarts
       - mysql_data:/var/lib/mysql
 
+  # MongoDB Database Service
   mongodb:
     image: mongo:7.0
     ports:
       - "27017:27017"
     volumes:
+      # Persist MongoDB data between restarts
       - mongodb_data:/data/db
 
+  # Flask API Service
   api:
-    build: .
+    build: .  # Build from Dockerfile in current directory
     ports:
       - "5000:5000"
     environment:
+      # Database connection settings (hostnames match service names)
       DB_HOST: mysql
       DB_PORT: 3306
       DB_USERNAME: root
@@ -32,9 +41,10 @@ services:
       MONGODB_PORT: 27017
       MONGODB_DATABASE: marketplace
     depends_on:
-      - mysql
-      - mongodb
+      - mysql  # Wait for MySQL to start
+      - mongodb  # Wait for MongoDB to start
 
+# Persistent volume definitions
 volumes:
-  mysql_data:
-  mongodb_data:
+  mysql_data:  # MySQL data volume
+  mongodb_data:  # MongoDB data volume

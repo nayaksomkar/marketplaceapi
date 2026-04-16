@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marketplace Dashboard</title>
+    
+    <!-- Stylesheet for dashboard design -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Header Section -->
     <header>
         <h1>Marketplace Dashboard</h1>
         <p class="subtitle">Manage your marketplace data</p>
     </header>
 
+    <!-- Main Content Grid -->
     <main>
+        <!-- Customers Card -->
         <section class="card">
             <h2>Customers</h2>
             <table id="customers-table">
@@ -27,6 +32,7 @@
             </table>
         </section>
 
+        <!-- Sellers Card -->
         <section class="card">
             <h2>Sellers</h2>
             <table id="sellers-table">
@@ -41,6 +47,7 @@
             </table>
         </section>
 
+        <!-- Items Card -->
         <section class="card">
             <h2>Items</h2>
             <table id="items-table">
@@ -55,6 +62,7 @@
             </table>
         </section>
 
+        <!-- Deliveries Card -->
         <section class="card">
             <h2>Deliveries</h2>
             <table id="deliveries-table">
@@ -70,10 +78,12 @@
         </section>
     </main>
 
+    <!-- Footer -->
     <footer>
         <p>Marketplace API v1.0.0</p>
     </footer>
 
+    <!-- Dashboard Logic -->
     <script src="app.js"></script>
 </body>
 </html>

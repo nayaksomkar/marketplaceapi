@@ -1,22 +1,16 @@
-# Flask and extensions
+# Marketplace API Dependencies
+
+# Flask web framework
 Flask==3.0.0
+
+# CORS support for frontend
 flask-cors==4.0.0
 
-# Database connectors
+# MySQL database connector
 mysql-connector-python==8.2.0
+
+# MongoDB driver
 pymongo==4.6.1
 
-# Configuration management
-PyYAML==6.0.1
-python-dotenv==1.0.0
-
-# Production server
+# Production WSGI server
 gunicorn==21.2.0
-
-# Testing
-pytest==7.4.3
-pytest-cov==4.1.0
-
-# Code quality
-flake8==6.1.0
-black==23.12.1

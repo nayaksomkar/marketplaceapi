@@ -19,7 +19,7 @@ venv\Scripts\activate         # Windows
 # Install dependencies
 pip install -r requirements.txt
 
-# Setup databases
+# Setup databases (creates tables automatically)
 python sqldbcreate.py
 python mongodbcreate.py
 python datawrite.py
@@ -32,17 +32,49 @@ python mainapi.py
 
 ## Configuration
 
-Edit `config.py` to change database settings:
+All configuration is managed in `config.py`. Default values:
 
 ```python
+# Database
 DB_HOST = 'localhost'
 DB_PORT = 3306
 DB_USER = 'root'
 DB_PASSWORD = '0000'
 DB_NAME = 'marketplace'
 
+# MongoDB
 MONGO_HOST = 'localhost'
 MONGO_PORT = 27017
+MONGO_DB = 'marketplace'
+
+# App
+APP_HOST = '0.0.0.0'
+APP_PORT = 5000
+DEBUG = False
+LOG_LEVEL = 'INFO'
+```
+
+Override with environment variables:
+
+```bash
+export DB_HOST=localhost
+export DB_PORT=3306
+export DB_USER=root
+export DB_PASSWORD=your_secure_password
+export DB_NAME=marketplace
+export MONGO_HOST=localhost
+export MONGO_PORT=27017
+export MONGO_DB=marketplace
+export APP_PORT=5000
+export DEBUG=false
+export LOG_LEVEL=INFO
+```
+
+Or create `.env` file (copy from `.env.example`):
+
+```bash
+cp .env.example .env
+# Edit .env with your values
 ```
 
 ## Project Files

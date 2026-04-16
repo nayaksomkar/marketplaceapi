@@ -1,11 +1,23 @@
 """
 MySQL Database Setup Module
+============================
+Creates the marketplace database and tables if they don't exist.
+Run this script once before starting the API.
+
+Tables Created:
+    - customers: Stores customer information
+    - sellers: Stores seller information
+    - items: Stores product listings (linked to sellers)
 """
+
 import mysql.connector as con
 import config
 
 def create_database():
-    """Create marketplace database if it doesn't exist."""
+    """
+    Create marketplace database if it doesn't exist.
+    Connects to MySQL server without specifying database.
+    """
     connection = con.connect(
         host=config.DB_HOST,
         user=config.DB_USER,
@@ -18,7 +30,10 @@ def create_database():
     connection.close()
 
 def create_tables():
-    """Create all required tables if they don't exist."""
+    """
+    Create all required tables if they don't exist.
+    Tables: customers, sellers, items
+    """
     connection = con.connect(
         host=config.DB_HOST,
         user=config.DB_USER,
@@ -27,6 +42,7 @@ def create_tables():
     )
     cursor = connection.cursor()
 
+    # Customers table: name, email (unique), address
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS customers (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -36,6 +52,7 @@ def create_tables():
         )
     """)
 
+    # Sellers table: name, email (unique), business_name
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS sellers (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -45,6 +62,7 @@ def create_tables():
         )
     """)
 
+    # Items table: linked to sellers via foreign key
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS items (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -61,7 +79,7 @@ def create_tables():
     connection.close()
 
 def setup():
-    """Run full database setup."""
+    """Run full database setup: create database then tables."""
     create_database()
     create_tables()
 
